@@ -17,3 +17,8 @@ export const getCart = () => API.get('/cart');
 export const addToWishlist = (productId) => API.post('/wishlist/add', { productId });
 export const removeFromWishlist = (productId) => API.post('/wishlist/remove', { productId });
 export const getWishlist = () => API.get('/wishlist');
+
+// Contact
+// Contact
+export const submitContactForm = (formData) => API.post('/contact/submit', formData);
+

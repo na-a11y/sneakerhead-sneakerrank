@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { submitContactForm } from '../api';
 import '../styles/Contact.css';
 
 const Contact = () => {
@@ -15,21 +16,20 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Handle form submission (e.g., send data to server or display a message)
-    console.log(formData);
 
-    // Show alert upon successful submission
-    alert('Sent successfully');
-    
-    // Clear form fields after submission
-    setFormData({
-      email: '',
-      phone: '',
-      message: '',
-    });
+    try {
+      await submitContactForm(formData);
+      alert('Form submitted successfully');
+      setFormData({
+        email: '',
+        phone: '',
+        message: '',
+      });
+    } catch (error) {
+      alert('Failed to submit the form');
+    }
   };
 
   return (
