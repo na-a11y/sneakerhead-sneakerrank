@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaHeart, FaUser } from 'react-icons/fa';
 import '../styles/Header.css';
 
-const Header = ({ cartQuantity, wishlist }) => {
+const Header = ({ cartQuantity, wishlist , user }) => {
   const navigate = useNavigate();
 
   return (
@@ -23,13 +23,19 @@ const Header = ({ cartQuantity, wishlist }) => {
           <FaHeart size={24} />
           {wishlist.length > 0 && <span className="wishlist-count">({wishlist.length})</span>}
         </button>
-        <button className="login-icon" onClick={() => navigate('/login')}>
-          <FaUser size={24} />
-        </button>
+        
         <button className="cart-icon" onClick={() => navigate('/cart')}>
           <FaShoppingCart size={24} />
           <span className="cart-quantity">({cartQuantity})</span>
         </button>
+        {user ? (
+          <span className="user-greeting">Hello, {user}</span> // Displaying the user name
+        ) : (
+          <button className="login-icon" onClick={() => navigate('/login')}>
+            <FaUser size={24} />
+          </button>
+        )}
+        
       </div>
     </header>
   );
