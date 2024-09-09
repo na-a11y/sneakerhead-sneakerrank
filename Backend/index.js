@@ -17,7 +17,7 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: ['http://localhost:3000','https://sneakerhead-sneakerrank-dy24.vercel.app/'] ,// Replace with your frontend origin if different
+  origin: ['http://localhost:3000', 'https://sneakerhead-sneakerrank-dy24.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
