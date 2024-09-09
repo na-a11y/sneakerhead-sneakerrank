@@ -11,6 +11,7 @@ router.post('/add', authenticate, async (req, res) => {
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
+    // Add product to wishlist if it's not already present
     if (!user.wishlist.includes(productId)) {
       user.wishlist.push(productId);
       await user.save();
@@ -19,7 +20,6 @@ router.post('/add', authenticate, async (req, res) => {
       return res.status(400).json({ message: 'Product already in wishlist' });
     }
   } catch (error) {
-    console.error('Error adding product to wishlist:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -35,7 +35,6 @@ router.post('/remove', authenticate, async (req, res) => {
     await user.save();
     return res.status(200).json({ message: 'Product removed from wishlist', wishlist: user.wishlist });
   } catch (error) {
-    console.error('Error removing product from wishlist:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -48,7 +47,6 @@ router.get('/', authenticate, async (req, res) => {
 
     res.status(200).json({ wishlist: user.wishlist });
   } catch (error) {
-    console.error('Error fetching wishlist:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
