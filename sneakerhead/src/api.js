@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://sneakerhead-sneakerrank-xlcs.vercel.app/', // Adjust base URL if needed
+  baseURL: 'http://localhost:5000', 
+  headers: {
+    'Content-Type': 'application/json',
+  } // Adjust base URL if needed
 });
 
 // In api.js
@@ -23,5 +26,5 @@ export const getWishlist = () => API.get('/wishlist');
 
 // Contact
 // Contact
-export const submitContactForm = (formData) => API.post('/contact', formData);
+export const submitContactForm = (formData) => API.post('/contact/submit', formData);
 

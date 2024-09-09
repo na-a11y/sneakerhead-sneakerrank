@@ -5,13 +5,19 @@ const User = require('../models/User');
 const Product = require('../models/Product');
 
 // Add a product to the cart
+
+// Add a product to the cart
 router.post('/add', authenticate, async (req, res) => {
   const { productId } = req.body;
   try {
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
-    // Add product to cart if it's not already present
+    // Check if the product exists
+    const product = await Product.findById(productId);
+    if (!product) return res.status(404).json({ message: 'Product not found' });
+
+    // Add the product to the cart if not already present
     if (!user.cart.includes(productId)) {
       user.cart.push(productId);
       await user.save();
@@ -20,9 +26,12 @@ router.post('/add', authenticate, async (req, res) => {
       return res.status(400).json({ message: 'Product already in cart' });
     }
   } catch (error) {
+    console.error('Error adding product to cart:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+
 
 // Remove a product from the cart
 router.post('/remove', authenticate, async (req, res) => {
@@ -35,6 +44,7 @@ router.post('/remove', authenticate, async (req, res) => {
     await user.save();
     return res.status(200).json({ message: 'Product removed from cart', cart: user.cart });
   } catch (error) {
+    console.error('Error removing product from cart:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -47,6 +57,7 @@ router.get('/', authenticate, async (req, res) => {
 
     res.status(200).json({ cart: user.cart });
   } catch (error) {
+    console.error('Error fetching cart:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
