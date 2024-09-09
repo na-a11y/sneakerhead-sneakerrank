@@ -1,10 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000', 
-  headers: {
-    'Content-Type': 'application/json',
-  } // Adjust base URL if needed
+  baseURL: 'https://sneakerhead-sneakerrank-xlcs.vercel.app/', 
+  // Adjust base URL if needed
 });
 
 // In api.js
