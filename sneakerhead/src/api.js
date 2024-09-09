@@ -23,5 +23,5 @@ export const getWishlist = () => API.get('/wishlist');
 
 // Contact
 // Contact
-export const submitContactForm = (formData) => API.post('/contact/submit', formData);
+export const submitContactForm = (formData) => API.post('/contact', formData);
 
