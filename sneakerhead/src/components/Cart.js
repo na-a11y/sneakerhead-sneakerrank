@@ -1,8 +1,7 @@
-// Cart.js
 import React from 'react';
 import '../styles/Cart.css';
 
-const Cart = ({ cart, updateQuantity, user }) => {
+const Cart = ({ cart, setCart, updateQuantity, user }) => {
   const calculateTotal = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
@@ -47,13 +46,13 @@ const Cart = ({ cart, updateQuantity, user }) => {
                   <span>{item.quantity}</span>
                   <button onClick={() => handleQuantityChange(item.id, 1)} className="quantity-btn">+</button>
                 </div>
-                <p className="cart-item-total">Total: ${(item.price * item.quantity).toFixed(2)}</p>
+                <p className="cart-item-total">Total: ₹{(item.price * item.quantity).toFixed(2)}</p>
               </div>
             </div>
           ))}
           <div className="cart-summary">
             <div className="cart-total">
-              <h2>Total Amount:₹{calculateTotal().toFixed(2)}</h2>
+              <h2>Total Amount: ₹{calculateTotal().toFixed(2)}</h2>
               <button className="checkout-btn" onClick={handleCheckout}>Proceed to Checkout</button>
             </div>
           </div>
