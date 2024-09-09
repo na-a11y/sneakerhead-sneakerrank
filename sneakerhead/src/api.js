@@ -1,8 +1,11 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://sneakerhead-sneakerrank-xlcs.vercel.app', // Adjust base URL if needed
+  baseURL: 'https://sneakerhead-sneakerrank-xlcs.vercel.app/', // Adjust base URL if needed
 });
+
+// In api.js
+export const checkLogin = () => API.get('/auth/check-login');
 
 // Auth
 export const signup = (formData) => API.post('/auth/signup', formData);

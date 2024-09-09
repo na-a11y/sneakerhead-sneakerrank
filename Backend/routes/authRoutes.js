@@ -8,7 +8,16 @@ const { submitContactForm } = require('../controllers/contactController');
 
 router.post('/signup', signup);
 router.post('/login', login);
-router.get('/check-login', authenticate, checkLogin);
+
+router.get('/check-login', (req, res) => {
+    // Logic to check if the user is logged in
+    const isLoggedIn = true; // Replace with actual logic
+    if (isLoggedIn) {
+      res.status(200).json({ message: 'User is logged in' });
+    } else {
+      res.status(401).json({ message: 'User is not logged in' });
+    }
+  });
 router.post('/contact', submitContactForm);
 
 module.exports = router;

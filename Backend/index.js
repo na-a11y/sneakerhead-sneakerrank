@@ -23,6 +23,7 @@ app.use(cors({
 }));
 
 // Routes
+
 app.use('/api/auth', authRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/wishlist', wishlistRoutes);
