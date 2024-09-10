@@ -11,7 +11,7 @@ const Contact = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('https://sneakerhead-sneakerrank-xlcs.vercel.app/api/contact/submit', {
+      const response = await axios.post('https://sneakerhead-sneakerrank-xlcs.vercel.app/contact/submit', {
         email,
         phone,
         message,
