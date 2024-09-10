@@ -22,7 +22,7 @@ connectDB();
 app.use(express.json());
 // Enable CORS for all routes
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://your-production-frontend-url.com'], // Replace with your frontend origins
+  origin: ['http://localhost:3000', 'https://sneakerhead-sneakerrank-dy24.vercel.app/'], // Replace with your frontend origins
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true // Allows cookies to be sent with requests
 }));
