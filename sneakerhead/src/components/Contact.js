@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { contact } from '../api'; // Adjust the import path to where your api.js is located
-import '../styles/Contact.css'; // Import the CSS file
+
+import axios from 'axios';
+import '../styles/Contact.css';// Import the CSS file
 
 const Contact = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +12,11 @@ const Contact = () => {
     event.preventDefault();
 
     try {
-      const response = await contact({ email, phone, message });
+      const response = await axios.post('https://sneakerhead-sneakerrank-xlcs.vercel.app/api/contact/submit', {
+        email,
+        phone,
+        message,
+      });
 
       if (response.status === 200) {
         alert('Form submitted successfully!');
