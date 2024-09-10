@@ -24,4 +24,4 @@ export const getWishlist = () => API.get('/wishlist');
 export const getProducts = () => API.get('/products');
 
 // Contact
-export const submitContactForm = (formData) => API.post('/contact/submit', formData);
+export const contact = (formData) => API.post('/contact/submit', formData);
