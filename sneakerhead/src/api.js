@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://sneakerhead-sneakerrank-xlcs.vercel.app/', 
+  baseURL: 'https://sneakerhead-sneakerrank-xlcs.vercel.app', 
   // Adjust base URL if needed
 });
 
