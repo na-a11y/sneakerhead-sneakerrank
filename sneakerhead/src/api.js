@@ -4,16 +4,6 @@ const API = axios.create({
   baseURL: 'https://sneakerhead-sneakerrank-xlcs.vercel.app/', 
 });
 
-API.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
 
 // Auth
 export const signup = (formData) => API.post('/auth/signup', formData);

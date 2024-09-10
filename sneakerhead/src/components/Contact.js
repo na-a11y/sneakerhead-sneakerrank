@@ -1,67 +1,64 @@
 import React, { useState } from 'react';
-import { submitContactForm } from '../api';
-import '../styles/Contact.css';
+import axios from 'axios';
+import '../styles/Contact.css';// Import the CSS file
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    phone: '',
-    message: '',
-  });
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     try {
-      await submitContactForm(formData);
-      alert('Form submitted successfully');
-      setFormData({
-        email: '',
-        phone: '',
-        message: '',
+      const response = await axios.post('https://sneakerhead-sneakerrank-xlcs.vercel.app/api/contact/submit', {
+        email,
+        phone,
+        message,
       });
+
+      if (response.status === 200) {
+        alert('Form submitted successfully!');
+        setEmail('');
+        setPhone('');
+        setMessage('');
+      }
     } catch (error) {
-      alert('Failed to submit the form');
+      console.error('Error submitting contact form:', error);
+      alert('An error occurred while submitting the form.');
     }
   };
 
   return (
-    <div className="contact-page">
-      <h1>Contact Us</h1>
-      <form onSubmit={handleSubmit} className="contact-form">
-        <label>Email:</label>
+    <form className="contact-form" onSubmit={handleSubmit}>
+      <label>
+        Email:
         <input
           type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <label>Phone Number:</label>
+      </label>
+      <label>
+        Phone:
         <input
           type="tel"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
           required
         />
-        <label>Message:</label>
+      </label>
+      <label>
+        Message:
         <textarea
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           required
-        ></textarea>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+        />
+      </label>
+      <button type="submit">Submit</button>
+    </form>
   );
 };
 

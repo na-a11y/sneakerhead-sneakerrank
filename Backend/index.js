@@ -4,9 +4,7 @@ const authRoutes = require('./routes/authRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const wishlistRoutes = require('./routes/wishlistRoutes');
 const contactRoutes = require('./routes/contactRoutes');
-const productRoutes = require('./routes/productRoutes');
-const { submitContactForm } = require('./controllers/contactController');
-
+const bodyParser = require('body-parser');
 const Contact = require('./models/Contact');
 
 const cors = require('cors');  // Import the cors package
@@ -20,6 +18,7 @@ connectDB();
 
 // Middleware
 app.use(express.json());
+app.use(bodyParser.json());
 // Enable CORS for all routes
 app.use(cors({
   origin: ['http://localhost:3000', 'https://sneakerhead-sneakerrank-dy24.vercel.app/'], // Replace with your frontend origins
@@ -27,35 +26,40 @@ app.use(cors({
   credentials: true // Allows cookies to be sent with requests
 }));
 
-
-app.options('*', cors());
+app.use(cors());
 // Routes
 
-app.use('/api/products', productRoutes);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/wishlist', wishlistRoutes);
 app.use('/api/contact', contactRoutes);
-app.post('/contact/submit', async(req, res) => {
-  const { email, phone, message } = req.body;
-
+app.post('/contact/submit', async (req, res) => {
   try {
-    const newContact = new Contact({
-      email,
-      phone,
-      message,
-    });
+    const { email, phone, message } = req.body;
 
+    // Log the received data to the console
+    console.log('Received contact form data:');
+    console.log(`Email: ${email}`);
+    console.log(`Phone: ${phone}`);
+    console.log(`Message: ${message}`);
+
+    // Create a new contact document
+    const newContact = new Contact({ email, phone, message });
+
+    // Save the document to the database
     await newContact.save();
 
-    res.status(201).json({ message: 'Contact form submitted successfully!' });
+    // Send a success response
+    res.status(200).send('Form submitted successfully!');
   } catch (error) {
-    console.error('Error while submitting contact form:', error);
-    res.status(500).json({ message: 'Failed to submit contact form' });
+    // Handle errors
+    console.error('Error saving contact form data:', error);
+    res.status(500).send('An error occurred while submitting the form.');
   }
- 
 });
+
+
 
 const PORT = process.env.PORT || 5000;
 
