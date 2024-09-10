@@ -1,3 +1,4 @@
+// models/Contact.js
 const mongoose = require('mongoose');
 
 const ContactSchema = new mongoose.Schema({
@@ -13,7 +14,7 @@ const ContactSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  createdAt: {
+  submittedAt: {
     type: Date,
     default: Date.now,
   },

@@ -1,12 +1,19 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://sneakerhead-sneakerrank-xlcs.vercel.app', 
-  // Adjust base URL if needed
+  baseURL: 'http://localhost:5000/', 
 });
 
-// In api.js
-export const checkLogin = () => API.get('/auth/check-login');
+API.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 // Auth
 export const signup = (formData) => API.post('/auth/signup', formData);
@@ -14,6 +21,7 @@ export const login = (formData) => API.post('/auth/login', formData);
 
 // Cart
 export const addToCart = (productId) => API.post('/cart/add', { productId });
+export const updateCartQuantity = (productId, change) => API.post('/cart/update', { productId, change });
 export const removeFromCart = (productId) => API.post('/cart/remove', { productId });
 export const getCart = () => API.get('/cart');
 
@@ -22,12 +30,8 @@ export const addToWishlist = (productId) => API.post('/wishlist/add', { productI
 export const removeFromWishlist = (productId) => API.post('/wishlist/remove', { productId });
 export const getWishlist = () => API.get('/wishlist');
 
-// Contact
-// Contact
-export const submitContactForm = (formData) => API.post('/contact/submit', formData, {
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
+// Products
+export const getProducts = () => API.get('/products');
 
-
+// Contact
+export const submitContactForm = (formData) => API.post('/contact/submit', formData);

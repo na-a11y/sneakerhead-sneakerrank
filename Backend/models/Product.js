@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Create a schema for the product
 const ProductSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -13,10 +14,15 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  image: {
-    type: String,  // URL for the image
+  imageUrl: {
+    type: String,
     required: true,
+  },
+  dateAdded: {
+    type: Date,
+    default: Date.now,
   },
 });
 
+// Export the model
 module.exports = mongoose.model('Product', ProductSchema);

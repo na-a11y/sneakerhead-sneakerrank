@@ -1,9 +1,9 @@
+const cors = require('cors');
 const express = require('express');
 const router = express.Router();
 const { submitContactForm } = require('../controllers/contactController');
-const authenticate = require('../middleware/authMiddleware'); 
 
-// Route to handle contact form submission
-router.post('/submit', submitContactForm);
+// Use CORS only for this route
+router.post('/submit', cors(), submitContactForm);
 
 module.exports = router;
